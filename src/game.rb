@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'gosu'
+require_relative 'enemy'
 require_relative 'player'
 
 class Game < Gosu::Window
@@ -11,15 +12,17 @@ class Game < Gosu::Window
     super(WIDTH, HEIGHT)
     self.caption = 'Back to end'
     @player = Player.new(self)
+    @enemy = Enemy.new(self)
   end
 
   def draw
     @player.draw
+    @enemy.draw
   end
 
   def update
-    @player.move_left if button_down?(Gosu::KbLeft)
-    @player.move_right if button_down?(Gosu::KbRight)
+    @player.update
+    @enemy.update
   end
 end
 

@@ -4,11 +4,16 @@ class Player
   def initialize(window)
     @window = window
     load_sprite
-    initial_player_position
+    initial_position
   end
 
   def draw
     @image.draw(@x, @y, 1)
+  end
+
+  def update
+    move_left if @window.button_down?(Gosu::KbLeft)
+    move_right if @window.button_down?(Gosu::KbRight)
   end
 
   def move_left
@@ -25,7 +30,7 @@ class Player
     @image = Gosu::Image.new('assets/images/ship.png')
   end
 
-  def initial_player_position
+  def initial_position
     @x = window_center_point
     @y = window_bottom_point
   end
