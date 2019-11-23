@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require 'gosu'
-require_relative 'enemy'
-require_relative 'player'
-
 class Game < Gosu::Window
   HEIGHT = 400
   WIDTH = 400
@@ -38,6 +34,3 @@ class Game < Gosu::Window
     rand(1..100) < ENEMY_SPAWN_RATIO
   end
 end
-
-game = Game.new
-game.show
