@@ -8,20 +8,12 @@ class Player
   end
 
   def draw
-    @image.draw(@x, @y, 1)
+    @image.draw(@x - (@image.width / 2), @y - (@image.height / 2), 1)
   end
 
   def update
     move_left if @window.button_down?(Gosu::KbLeft)
     move_right if @window.button_down?(Gosu::KbRight)
-  end
-
-  def move_left
-    @x -= 3
-  end
-
-  def move_right
-    @x += 3
   end
 
   private
@@ -31,15 +23,15 @@ class Player
   end
 
   def initial_position
-    @x = window_center_point
-    @y = window_bottom_point
+    @x = (@window.width / 2)
+    @y = @window.height - (@image.height / 2)
   end
 
-  def window_center_point
-    (@window.width / 2) - (@image.width / 2)
+  def move_left
+    @x -= 3
   end
 
-  def window_bottom_point
-    @window.height - @image.width
+  def move_right
+    @x += 3
   end
 end

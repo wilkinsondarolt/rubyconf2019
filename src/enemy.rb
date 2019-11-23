@@ -14,7 +14,7 @@ class Enemy
   end
 
   def draw
-    @image.draw(@x, @y, 1)
+    @image.draw(@x - (@image.width / 2), @y - (@image.height / 2), 1)
   end
 
   private
