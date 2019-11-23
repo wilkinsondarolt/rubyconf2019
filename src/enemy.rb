@@ -20,7 +20,7 @@ class Enemy
   private
 
   def load_sprite
-    @image = Gosu::Image.new('assets/images/enemy.png')
+    @image = Gosu::Image.new("assets/images/enemy#{rand(1..3)}.png")
   end
 
   def initial_position
