@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Enemy
+  attr_reader :x, :y, :radius
+
   SPEED = 4
 
   def initialize(window)
@@ -21,6 +23,7 @@ class Enemy
 
   def load_sprite
     @image = Gosu::Image.new("assets/images/enemy#{rand(1..3)}.png")
+    @radius = (@image.width / 2)
   end
 
   def initial_position
@@ -29,9 +32,7 @@ class Enemy
   end
 
   def random_horizontal_position
-    offset = (@image.width / 2).truncate
-
-    rand(offset..(@window.width - offset))
+    rand(@radius..(@window.width - @radius))
   end
 
   def move

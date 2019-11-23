@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Player
+  attr_reader :x, :y, :radius
+
   def initialize(window)
     @window = window
     load_sprite
@@ -8,7 +10,7 @@ class Player
   end
 
   def draw
-    @image.draw(@x - (@image.width / 2), @y - (@image.height / 2), 1)
+    @image.draw(@x - @radius, @y - @radius, 1)
   end
 
   def update
@@ -24,6 +26,7 @@ class Player
 
   def load_sprite
     @image = Gosu::Image.new('assets/images/ship.png')
+    @radius = (@image.width / 2)
   end
 
   def initial_position

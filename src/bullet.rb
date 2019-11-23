@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Bullet
+  attr_reader :x, :y, :radius
+
   DIRECTIONS = {
     up: -1,
     down: 1
@@ -20,12 +22,13 @@ class Bullet
   end
 
   def draw
-    @image.draw(@x - (@image.width / 2), @y - (@image.width / 2), 1)
+    @image.draw(@x - radius, @y - radius, 1)
   end
 
   private
 
   def load_sprite
     @image = Gosu::Image.new('assets/images/bullet.png')
+    @radius = (@image.width / 2)
   end
 end
