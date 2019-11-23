@@ -16,6 +16,10 @@ class Player
     move_right if @window.button_down?(Gosu::KbRight)
   end
 
+  def shoot
+    Bullet.new(@window, @x, @y, :up)
+  end
+
   private
 
   def load_sprite

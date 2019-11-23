@@ -10,11 +10,13 @@ class Game < Gosu::Window
     self.caption = 'Back to end'
     @player = Player.new(self)
     @enemies = []
+    @bullets = []
   end
 
   def draw
     @player.draw
     @enemies.each(&:draw)
+    @bullets.each(&:draw)
   end
 
   def update
@@ -22,12 +24,21 @@ class Game < Gosu::Window
 
     @player.update
     @enemies.each(&:update)
+    @bullets.each(&:update)
+  end
+
+  def button_down(id)
+    player_shoot if id == Gosu::KbSpace
   end
 
   private
 
   def spawn_enemy
     @enemies << Enemy.new(self)
+  end
+
+  def player_shoot
+    @bullets << @player.shoot
   end
 
   def spawn_new_enemy?
