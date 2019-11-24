@@ -23,6 +23,10 @@ class Enemy
     Explosion.new(@window, @x, @y)
   end
 
+  def out_of_bounds?
+    y > @window.height + @radius
+  end
+
   private
 
   def load_sprite

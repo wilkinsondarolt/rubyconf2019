@@ -13,6 +13,10 @@ class Explosion
     end
   end
 
+  def finished?
+    @image_index == @image_count
+  end
+
   private
 
   def load_sprite_sheet
@@ -25,9 +29,5 @@ class Explosion
 
   def current_sprite
     @images[@image_index]
-  end
-
-  def finished?
-    @image_index == @image_count
   end
 end

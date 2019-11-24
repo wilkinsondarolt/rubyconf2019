@@ -28,6 +28,10 @@ class Game < Gosu::Window
     @player.update
     @enemies.each(&:update)
     @bullets.each(&:update)
+
+    clear_unused_enemies
+    clear_unused_bullets
+    clear_unused_explosions
   end
 
   def button_down(id)
@@ -74,5 +78,17 @@ class Game < Gosu::Window
     )
 
     distance < (enemy.radius + bullet.radius)
+  end
+
+  def clear_unused_enemies
+    @enemies.reject!(&:out_of_bounds?)
+  end
+
+  def clear_unused_bullets
+    @bullets.reject!(&:out_of_bounds?)
+  end
+
+  def clear_unused_explosions
+    @explosions.reject!(&:finished?)
   end
 end

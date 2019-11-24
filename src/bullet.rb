@@ -25,6 +25,10 @@ class Bullet
     @image.draw(@x - radius, @y - radius, 1)
   end
 
+  def out_of_bounds?
+    y.negative?
+  end
+
   private
 
   def load_sprite
