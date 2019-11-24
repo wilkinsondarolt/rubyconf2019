@@ -11,12 +11,14 @@ class Game < Gosu::Window
     @player = Player.new(self)
     @enemies = []
     @bullets = []
+    @explosions = []
   end
 
   def draw
     @player.draw
     @enemies.each(&:draw)
     @bullets.each(&:draw)
+    @explosions.each(&:draw)
   end
 
   def update
@@ -50,11 +52,17 @@ class Game < Gosu::Window
     @enemies.each do |enemy|
       @bullets.each do |bullet|
         if colliding?(enemy, bullet)
+          explode_enemy(enemy)
+
           @bullets.delete(bullet)
           @enemies.delete(enemy)
         end
       end
     end
+  end
+
+  def explode_enemy(enemy)
+    @explosions << enemy.explode
   end
 
   def colliding?(enemy, bullet)

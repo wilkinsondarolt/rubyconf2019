@@ -19,6 +19,10 @@ class Enemy
     @image.draw(@x - (@image.width / 2), @y - (@image.height / 2), 1)
   end
 
+  def explode
+    Explosion.new(@window, @x, @y)
+  end
+
   private
 
   def load_sprite
