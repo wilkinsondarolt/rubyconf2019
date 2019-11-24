@@ -21,6 +21,7 @@ class Game < Gosu::Window
 
   def update
     spawn_enemy if spawn_new_enemy?
+    check_colission
 
     @player.update
     @enemies.each(&:update)
@@ -43,5 +44,27 @@ class Game < Gosu::Window
 
   def spawn_new_enemy?
     rand(1..100) < ENEMY_SPAWN_RATIO
+  end
+
+  def check_colission
+    @enemies.each do |enemy|
+      @bullets.each do |bullet|
+        if colliding?(enemy, bullet)
+          @bullets.delete(bullet)
+          @enemies.delete(enemy)
+        end
+      end
+    end
+  end
+
+  def colliding?(enemy, bullet)
+    distance = Gosu.distance(
+      enemy.x,
+      enemy.y,
+      bullet.x,
+      bullet.y
+    )
+
+    distance < (enemy.radius + bullet.radius)
   end
 end
