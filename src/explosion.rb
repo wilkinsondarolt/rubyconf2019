@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 class Explosion
   def initialize(window, x, y)
     load_sprite_sheet
     @x = x
     @y = y
     @window = window
+
+    Sfx.explosion
   end
 
   def draw

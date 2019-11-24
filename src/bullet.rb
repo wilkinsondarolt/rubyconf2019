@@ -15,6 +15,8 @@ class Bullet
     @window = window
 
     load_sprite
+
+    Sfx.shoot
   end
 
   def update
