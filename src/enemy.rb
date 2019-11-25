@@ -30,7 +30,7 @@ class Enemy
   private
 
   def load_sprite
-    @image = Gosu::Image.new("assets/images/enemy#{rand(1..3)}.png")
+    @image = Gosu::Image.new("assets/images/enemy#{rand(1..7)}.png")
     @radius = (@image.width / 2)
   end
 
