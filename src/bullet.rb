@@ -4,8 +4,8 @@ class Bullet
   attr_reader :x, :y, :radius
 
   DIRECTIONS = {
-    up: -1,
-    down: 1
+    up: -3,
+    down: 3
   }.freeze
 
   def initialize(window, x, y, direction)
