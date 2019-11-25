@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-class Game < Gosu::Window
-  HEIGHT = 400
-  WIDTH = 400
+class Game
+  attr_reader :score
+
   ENEMY_SPAWN_RATIO = 3
 
-  def initialize
-    super(WIDTH, HEIGHT)
-    self.caption = 'Back to end'
-    @player = Player.new(self)
-    @font = Gosu::Font.new(30)
+  def initialize(window)
+    @window = window
+    @player = Player.new(@window)
     @background = Gosu::Image.new('assets/images/background.png')
+    @font = Gosu::Font.new(30)
     @score = 0
+    @lives = 4
     @enemies = []
     @bullets = []
     @explosions = []
@@ -25,12 +25,15 @@ class Game < Gosu::Window
     @bullets.each(&:draw)
     @explosions.each(&:draw)
 
-    draw_score
+    draw_hud
   end
 
   def update
     spawn_enemy if spawn_new_enemy?
-    check_collision
+    check_enemies_collision
+    check_player_collision
+
+    @window.transition_to(:end) if game_ended?
 
     @player.update
     @enemies.each(&:update)
@@ -48,7 +51,7 @@ class Game < Gosu::Window
   private
 
   def spawn_enemy
-    @enemies << Enemy.new(self)
+    @enemies << Enemy.new(@window)
   end
 
   def player_shoot
@@ -59,7 +62,7 @@ class Game < Gosu::Window
     rand(1..100) < ENEMY_SPAWN_RATIO
   end
 
-  def check_collision
+  def check_enemies_collision
     @enemies.each do |enemy|
       @bullets.each do |bullet|
         if colliding?(enemy, bullet)
@@ -73,19 +76,29 @@ class Game < Gosu::Window
     end
   end
 
+  def check_player_collision
+    @enemies.each do |enemy|
+      if colliding?(@player, enemy)
+        @lives -= 1
+
+        @enemies.delete(enemy)
+      end
+    end
+  end
+
   def explode_enemy(enemy)
     @explosions << enemy.explode
   end
 
-  def colliding?(enemy, bullet)
+  def colliding?(object, other)
     distance = Gosu.distance(
-      enemy.x,
-      enemy.y,
-      bullet.x,
-      bullet.y
+      object.x,
+      object.y,
+      other.x,
+      other.y
     )
 
-    distance < (enemy.radius + bullet.radius)
+    distance < (object.radius + other.radius)
   end
 
   def clear_unused_enemies
@@ -106,7 +119,7 @@ class Game < Gosu::Window
     @explosions.reject!(&:finished?)
   end
 
-  def draw_score
+  def draw_hud
     @font.draw_text(
       "Score: #{@score}",
       0,
@@ -116,5 +129,19 @@ class Game < Gosu::Window
       1,
       Gosu::Color::BLACK
     )
+
+    @font.draw_text(
+      "Lives: #{@lives}",
+      0,
+      370,
+      3,
+      1,
+      1,
+      Gosu::Color::BLACK
+    )
+  end
+
+  def game_ended?
+    @lives <= 0
   end
 end

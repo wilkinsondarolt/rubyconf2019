@@ -7,5 +7,7 @@ require_relative 'src/player'
 require_relative 'src/bullet'
 require_relative 'src/explosion'
 require_relative 'src/sfx'
+require_relative 'src/scene'
+require_relative 'src/end'
 
-Game.new.show
+Scene.new.show
