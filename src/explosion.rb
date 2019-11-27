@@ -28,7 +28,6 @@ class Explosion
     @radius = (@images[0].width / 2)
     @image_index = 0
     @image_count = @images.count
-    @finished = false
   end
 
   def current_sprite

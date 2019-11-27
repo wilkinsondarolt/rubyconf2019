@@ -19,7 +19,7 @@ class Player
   end
 
   def shoot
-    Bullet.new(@window, @x, @y, :up)
+    Bullet.new(@window, @x, @y)
   end
 
   private
@@ -31,7 +31,7 @@ class Player
 
   def initial_position
     @x = (@window.width / 2)
-    @y = @window.height - (@image.height / 2)
+    @y = @window.height - @radius
   end
 
   def move_left

@@ -3,8 +3,6 @@
 class Enemy
   attr_reader :x, :y, :radius
 
-  SPEED = 4
-
   def initialize(window)
     @window = window
     load_sprite
@@ -12,7 +10,7 @@ class Enemy
   end
 
   def update
-    move
+    @y += 4
   end
 
   def draw
@@ -41,9 +39,5 @@ class Enemy
 
   def random_horizontal_position
     rand(@radius..(@window.width - @radius))
-  end
-
-  def move
-    @y += SPEED
   end
 end

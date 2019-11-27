@@ -3,15 +3,9 @@
 class Bullet
   attr_reader :x, :y, :radius
 
-  DIRECTIONS = {
-    up: -3,
-    down: 3
-  }.freeze
-
-  def initialize(window, x, y, direction)
+  def initialize(window, x, y)
     @x = x
     @y = y
-    @speed = DIRECTIONS[direction]
     @window = window
 
     load_sprite
@@ -20,7 +14,7 @@ class Bullet
   end
 
   def update
-    @y += @speed
+    @y -= 3
   end
 
   def draw
@@ -28,7 +22,7 @@ class Bullet
   end
 
   def out_of_bounds?
-    y.negative?
+    (y + @radius).negative?
   end
 
   private
