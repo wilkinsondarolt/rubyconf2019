@@ -35,10 +35,18 @@ class Player
   end
 
   def move_left
-    @x -= 3
+    @x -= 3 unless colliding_left?
+  end
+
+  def colliding_left?
+    (@x - @radius) <= 0
   end
 
   def move_right
-    @x += 3
+    @x += 3 unless colliding_right?
+  end
+
+  def colliding_right?
+    (@x + @radius) >= @window.width
   end
 end
